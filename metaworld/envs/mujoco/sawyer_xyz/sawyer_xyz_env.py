@@ -361,8 +361,11 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         """
         # do frame stacking
         pos_goal = self._get_pos_goal()
+        print("INSIDE 2")
+
         if self._partially_observable:
             pos_goal = np.zeros_like(pos_goal)
+            print("INSIDE 1")
         curr_obs = self._get_curr_obs_combined_no_goal()
         # do frame stacking
         if self.isV2:
