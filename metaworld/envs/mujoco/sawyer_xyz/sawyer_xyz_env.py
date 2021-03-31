@@ -136,7 +136,7 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         self._obs_obj_possible_lens = (6, 14)
 
         self._set_task_called = False
-        self._partially_observable = True
+        self._partially_observable = False
 
         self.hand_init_pos = None  # OVERRIDE ME
         self._target_pos = None  # OVERRIDE ME
