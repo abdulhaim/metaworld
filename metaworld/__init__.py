@@ -71,7 +71,7 @@ class Benchmark(abc.ABC):
 _ML_OVERRIDE = dict(partially_observable=True)
 _MT_OVERRIDE = dict(partially_observable=False)
 
-_N_GOALS = 50
+_N_GOALS = 1
 
 
 def _encode_task(env_name, data):
@@ -137,7 +137,7 @@ class MT1(Benchmark):
 
     ENV_NAMES = _ml1_env_names()
 
-    def __init__(self, env_name):
+    def __init__(self, env_name, seed=1):
         super().__init__()
         if not env_name in _env_dict.ALL_V2_ENVIRONMENTS:
             raise ValueError(f"{env_name} is not a V2 environment")
@@ -146,6 +146,7 @@ class MT1(Benchmark):
         self._test_classes = self._train_classes
         self._train_ = OrderedDict([(env_name, cls)])
         args_kwargs = _env_dict.ML1_args_kwargs[env_name]
+        np.random.seed(1)
 
         self._train_tasks = _make_tasks(self._train_classes,
                                         {env_name: args_kwargs},
