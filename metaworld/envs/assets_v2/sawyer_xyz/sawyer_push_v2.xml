@@ -12,7 +12,7 @@
         <include file="../objects/assets/block_cyl.xml"/>
       </body> -->
 
-      <body name="obj" pos="0 0.6 0.02">
+      <body name="obj" pos="0.1 0.8 0.02">
 
           <joint name="objjoint" type="free" limited='false' damping="0." armature="0."/>
 
@@ -24,7 +24,7 @@
       </body>
 
       <!-- push goal -->
-      <site name="goal" pos="0.1 0.8 0.02" size="0.02"
+      <site name="goal" pos="0 0.6 0.02" size="0.02"
             rgba="0 0.8 0 1"/>
 
     </worldbody>
