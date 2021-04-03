@@ -108,7 +108,7 @@ def _make_tasks(classes, args_kwargs, kwargs_override):
 
 def _ml1_env_names():
     tasks = list(_env_dict.ML1_V2['train'])
-    assert len(tasks) == 50
+    assert len(tasks) == 52
     return tasks
 
 

@@ -37,6 +37,8 @@ from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_plate_slide_back_side_v2 import 
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_plate_slide_side_v2 import SawyerPlateSlideSideEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_push_back_v2 import SawyerPushBackEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_push_v2 import SawyerPushEnvV2
+from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_push_slight_v2 import SawyerPushSlightEnvV2
+from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_push_opposite_v2 import SawyerPushOppositeEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_push_wall_v2 import SawyerPushWallEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_reach_v2 import SawyerReachEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.v2.sawyer_reach_wall_v2 import SawyerReachWallEnvV2
@@ -90,6 +92,8 @@ __all__ = [
     'SawyerPlateSlideEnvV2',
     'SawyerPushBackEnvV2',
     'SawyerPushEnvV2',
+    'SawyerPushSlightEnvV2',
+    'SawyerPushOppositeEnvV2',
     'SawyerPushWallEnvV2',
     'SawyerReachEnvV2',
     'SawyerReachWallEnvV2',
