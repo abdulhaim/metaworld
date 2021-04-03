@@ -42,7 +42,7 @@ class SawyerPushSlightEnvV2(SawyerXYZEnv):
             'hand_init_pos': np.array([0., 0.6, 0.2]),
         }
 
-        self.goal = np.array([0.1, 0.8, 0.02])
+        self.goal = np.array([-0.1, 0.8, 0.02])
 
         self.obj_init_angle = self.init_config['obj_init_angle']
         self.obj_init_pos = self.init_config['obj_init_pos']
