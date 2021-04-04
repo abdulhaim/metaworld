@@ -367,7 +367,8 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         curr_obs = self._get_curr_obs_combined_no_goal()
         # do frame stacking
         if self.isV2:
-            obs = np.hstack((curr_obs, self._prev_obs, pos_goal))
+            print(self.one_hot_encode)
+            obs = np.hstack((curr_obs, self._prev_obs, pos_goal, self.one_hot_encode))
         else:
             obs = np.hstack((curr_obs, pos_goal))
         self._prev_obs = curr_obs
