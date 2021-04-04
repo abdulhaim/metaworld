@@ -42,6 +42,7 @@ class SawyerDrawerOpenEnvV2(SawyerXYZEnv):
 
         self.maxDist = 0.2
         self.target_reward = 1000 * self.maxDist + 1000 * 2
+        self.one_hot_encode = 1
 
     @property
     def model_name(self):
