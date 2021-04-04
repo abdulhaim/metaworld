@@ -59,6 +59,7 @@ class SawyerPushEnvV2(SawyerXYZEnv):
         )
         self.goal_space = Box(np.array(goal_low), np.array(goal_high))
         self.num_resets = 0
+        self.one_hot_encode = 0
 
     @property
     def model_name(self):
