@@ -132,8 +132,8 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         self.isV2 = "V2" in type(self).__name__
         # Technically these observation lengths are different between v1 and v2,
         # but we handle that elsewhere and just stick with v2 numbers here
-        self._obs_obj_max_len = 14 if self.isV2 else 6
-        self._obs_obj_possible_lens = (6, 14)
+        self._obs_obj_max_len = 15 if self.isV2 else 6
+        self._obs_obj_possible_lens = (6, 15)
 
         self._set_task_called = False
         self._partially_observable = True
