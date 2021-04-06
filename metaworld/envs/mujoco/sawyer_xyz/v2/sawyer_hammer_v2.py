@@ -35,6 +35,7 @@ class SawyerHammerEnvV2(SawyerXYZEnv):
 
         self._random_reset_space = Box(np.array(obj_low), np.array(obj_high))
         self.goal_space = Box(np.array(goal_low), np.array(goal_high))
+        # self.one_hot_encode = [0,1]
 
     @property
     def model_name(self):

@@ -78,13 +78,12 @@ def _encode_task(env_name, data):
     return Task(env_name=env_name, data=pickle.dumps(data))
 
 
-def _make_tasks(classes, one_hot_encode, args_kwargs, kwargs_override):
+def _make_tasks(classes, args_kwargs, kwargs_override):
     tasks = []
     for (env_name, args) in args_kwargs.items():
         assert len(args['args']) == 0
         env_cls = classes[env_name]
         env = env_cls()
-        env.one_hot_encode = one_hot_encode
         env._freeze_rand_vec = False
         env._set_task_called = True
         rand_vecs = []
@@ -139,7 +138,7 @@ class MT1(Benchmark):
 
     ENV_NAMES = _ml1_env_names()
 
-    def __init__(self, env_name, one_hot_encode, seed=1):
+    def __init__(self, env_name, seed=1):
         super().__init__()
         if not env_name in _env_dict.ALL_V2_ENVIRONMENTS:
             raise ValueError(f"{env_name} is not a V2 environment")
@@ -149,7 +148,7 @@ class MT1(Benchmark):
         self._train_ = OrderedDict([(env_name, cls)])
         args_kwargs = _env_dict.ML1_args_kwargs[env_name]
         np.random.seed(1)
-        self._train_tasks = _make_tasks(self._train_classes, one_hot_encode,
+        self._train_tasks = _make_tasks(self._train_classes,
                                         {env_name: args_kwargs},
                                         _MT_OVERRIDE)
         self._test_tasks = []
@@ -204,6 +203,7 @@ class MT50(Benchmark):
 
     def __init__(self):
         super().__init__()
+        np.random.seed(1)
         self._train_classes = _env_dict.MT50_V2
         self._test_classes = OrderedDict()
         train_kwargs = _env_dict.MT50_V2_ARGS_KWARGS

@@ -35,6 +35,7 @@ class SawyerButtonPressEnvV2(SawyerXYZEnv):
             np.array(obj_high),
         )
         self.goal_space = Box(np.array(goal_low), np.array(goal_high))
+        # self.one_hot_encode = [1,1]
 
     @property
     def model_name(self):

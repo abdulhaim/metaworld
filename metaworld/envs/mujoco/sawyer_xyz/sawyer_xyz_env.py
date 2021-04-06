@@ -148,6 +148,7 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         # doesn't seem to matter (it will only effect frame-stacking for the
         # very first observation)
         self._prev_obs = self._get_curr_obs_combined_no_goal()
+        self.episode_steps = 0
 
     def _set_task_inner(self):
         # Doesn't absorb "extra" kwargs, to ensure nothing's missed.
@@ -367,7 +368,7 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         curr_obs = self._get_curr_obs_combined_no_goal()
         # do frame stacking
         if self.isV2:
-            obs = np.hstack((curr_obs, self._prev_obs, pos_goal, self.one_hot_encode))
+            obs = np.hstack((curr_obs, self._prev_obs, pos_goal))
         else:
             obs = np.hstack((curr_obs, pos_goal))
         self._prev_obs = curr_obs
@@ -395,8 +396,8 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
         gripper_high = +1.
 
         return Box(
-            np.hstack((self._HAND_SPACE.low, gripper_low, obj_low, self._HAND_SPACE.low, gripper_low, obj_low, goal_low, self.one_hot_encode)),
-            np.hstack((self._HAND_SPACE.high, gripper_high, obj_high, self._HAND_SPACE.high, gripper_high, obj_high, goal_high, self.one_hot_encode))
+            np.hstack((self._HAND_SPACE.low, gripper_low, obj_low, self._HAND_SPACE.low, gripper_low, obj_low, goal_low)),
+            np.hstack((self._HAND_SPACE.high, gripper_high, obj_high, self._HAND_SPACE.high, gripper_high, obj_high, goal_high))
         ) if self.isV2 else Box(
             np.hstack((self._HAND_SPACE.low, obj_low, goal_low)),
             np.hstack((self._HAND_SPACE.high, obj_high, goal_high))
@@ -404,6 +405,14 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
 
     @_assert_task_is_set
     def step(self, action):
+        self.episode_steps += 1
+
+        if self.episode_steps == self.max_path_length:
+            done_signal = True
+            self.episode_steps = 0
+        else:
+            done_signal = False
+
         self.set_xyz_action(action[:3])
         self.do_simulation([action[-1], -action[-1]])
         self.curr_path_length += 1
@@ -438,7 +447,8 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
             return self._last_stable_obs
 
         reward, info = self.evaluate_state(self._last_stable_obs, action)
-        return self._last_stable_obs, reward, False, info
+
+        return self._last_stable_obs, reward, done_signal, info
 
     def evaluate_state(self, obs, action):
         """Does the heavy-lifting for `step()` -- namely, calculating reward
